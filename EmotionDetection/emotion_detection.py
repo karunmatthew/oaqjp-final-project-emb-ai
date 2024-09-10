@@ -27,4 +27,5 @@ def emotion_detector(text_to_analyse):
         return "There has been an error in the server"
     else:
         # format the json response data with proper indentation
-        return json.dumps(emotion_data, indent=4)
+        # return json.dumps(emotion_data, indent=4)
+        return emotion_data
