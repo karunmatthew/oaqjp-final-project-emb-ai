@@ -15,16 +15,19 @@ def identify_emotion():
         text_to_analyze = request.args.get('textToAnalyze')
         response = emotion_detector(text_to_analyze)
         dominant_emotion = response['dominant_emotion']
+
+        if dominant_emotion == None:
+            return "Invalid text! Please try again!."
+
         # construct the output response string
         # using list comprehension to extract the required keys
         entries = [f"'{key}': '{value}'" for key, value in response.items() if key != 'dominant_emotion']
         # join the list entries back to string with the appropriate delimiters
         emotion_scores = ' and '.join([', '.join(entries[:-1]), entries[-1]])
     except:
-        return ""
+        return "Invalid text! Please try again!."
     else:
         return OUTPUT_FORMAT_STRING.format(emotion_scores, dominant_emotion)
-
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=5000)
